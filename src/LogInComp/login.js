@@ -85,7 +85,7 @@ function LogInForm() {
       <div>
         <h3>SIGN IN</h3>
       </div>
-      <div>
+      <div id='user_name_cont'>
         {user_id_lable ? <label htmlFor="user_name">Mobile/Email<br /></label> : ""}
         <input type="text" placeholder="Mobile/Email" onBlur={userId} id="user_name"
           onClick={() => set_user_id_lable(true)} style={col ? { color: 'red', borderBottomColor: 'red' } : {}} />

@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import axios  from 'axios'
 import Navbar from "../HeaderComp/navbar";
 import HomeSection from "../SectionOne/home";
@@ -13,8 +13,11 @@ const Url = "https://laundry-backend-i2fe.onrender.com/register"
 function RegisterPage(){
     const form_data = useRef();
     let navigate = useNavigate();
+    const [reg_user, set_userDetails] = useState({})
+    const [get_check_d , set_check_d] = useState(false)
     async function Reg_User(e){
         e.preventDefault()
+        console.log(reg_user)
         const  data = {
             name:form_data.current.name.value,
             email:form_data.current.email.value,
@@ -25,40 +28,51 @@ function RegisterPage(){
             pincode:form_data.current.pincode.value,
             password:form_data.current.password.value
         }
-        const response = await axios.post(Url,data)
+        if(get_check_d){
+            const response = await axios.post(Url,data)
         console.log(response.status)
         if(response.status === 200){
             navigate('/')
         }
+        }{alert('Please Select Term & Condition')}
+        
     }
     return(
         <>
             <Navbar/>
             <div id="reg_container">
-                <div>
+                <div id="right_side_cont">
                     <HomeSection change_login={true}/>
                 </div>
                 <div id="form_container">
                     <h1>REGISTER</h1>
                     <form ref={form_data}>
                         <div>
-                        <input type="text" placeholder="Name" id="name" />
-                        <input type="email" placeholder="Email" id="email" />
+                        <input type="text" placeholder="Name" id="name"
+                         onChange={(e)=>{set_userDetails({...reg_user,name:e.target.value})}}/>
+                        <input type="email" placeholder="Email" id="email" required={true} 
+                        onChange={(e)=>{set_userDetails({...reg_user,email:e.target.value})}}/>
                         </div>
                         <div>
-                        <input type="tel" placeholder="Phone" id="phone" />
-                        <input type="text" placeholder="State" id="state" />
+                        <input type="tel" placeholder="Phone" id="phone" 
+                        onChange={(e)=>{set_userDetails({...reg_user,phone:e.target.value})}}/>
+                        <input type="text" placeholder="State" id="state"
+                        onChange={(e)=>{set_userDetails({...reg_user,state:e.target.value})}} />
                         </div>
                         <div>
-                        <input type="text" placeholder="District" id="district" />
-                        <input type="text" placeholder="Address" id="address" />
+                        <input type="text" placeholder="District" id="district" 
+                        onChange={(e)=>{set_userDetails({...reg_user,district:e.target.value})}}/>
+                        <input type="text" placeholder="Address" id="address"
+                         onChange={(e)=>{set_userDetails({...reg_user,address:e.target.value})}}/>
                         </div>
                         <div>
-                        <input type="text" placeholder="Pincode" id="pincode" />
-                        <input type="password" placeholder="Password" id="password" />
+                        <input type="text" placeholder="Pincode" id="pincode" 
+                        onChange={(e)=>{set_userDetails({...reg_user,pincode:e.target.value})}}/>
+                        <input type="password" placeholder="Password" id="password" minLength={8} maxLength={16}
+                        onChange={(e)=>{set_userDetails({...reg_user,password:e.target.value})}}/>
                         </div>
                         <div id="check_box">
-                            <input type={'checkbox'} id="checkbox"/>
+                            <input type={'checkbox'} id="checkbox" onChange={()=>set_check_d(true)}/>
                             <label htmlFor="checkbox"><Link to="#">I agree to Terms & Condition receiving marketing and promotional materials</Link></label>
                         </div>
                         <div>

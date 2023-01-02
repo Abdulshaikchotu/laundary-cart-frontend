@@ -34,17 +34,16 @@
 #logo_name {
     
     /* UI Properties */
-    padding-left: 7%;
+    padding-left: 4%;
     text-align: left;
     font: normal normal 900 20px/27px Avenir;
     letter-spacing: 1.8px;
     color: #5861AE;
     text-transform: uppercase;
     opacity: 1;
-    margin-left: 80px;
 }
 .header_nav .nav_links{
-    width: 80%;
+    width: 100%;
     height: 100%;
 }
 .header_nav li:last-child{

@@ -1,10 +1,10 @@
 
 import '../Createorderpage/Order.css'
-import Orderpagenav from '../Orderpagenav'
 import Orderpagesidebar from '../Orderpagesidebar'
 import CopyRight from '../../FooterComp/copyright'
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
+import Navbar from '../../HeaderComp/navbar'
 function Orderpage() {
 
     const [shirt, setshirt] = useState({ quantity: 0, washing: null, ironing: null, towel: null, bleach: null })
@@ -40,7 +40,7 @@ function Orderpage() {
 
     return (
         <div>
-            <Orderpagenav></Orderpagenav>
+            <Navbar/>
             <span style={{ 'marginLeft': '30px', 'fontSize': '18px' }}> order</span>
             <span id='inputsearch'> <span><img src={require('../logo/search.jpg')} id='simg' ></img></span><input></input></span>
             <div className='op'>
@@ -313,7 +313,7 @@ function Orderpage() {
                     </tbody>
                 </table>
                 <div id='navbutton'>
-                    <Link to='/'>                    <div><button style={{ 'border': '1px solid #5861AE', 'color': '#5861AE', 'width': '85px', 'height': '32px', 'borderRadius': '3px' }}>Cancal</button></div></Link>
+                    <Link to='/Cardorderpage'>                    <div><button style={{ 'border': '1px solid #5861AE', 'color': '#5861AE', 'width': '85px', 'height': '32px', 'borderRadius': '3px' }}>Cancal</button></div></Link>
                     <div><button style={{ 'border': '1px solid #5861AE', 'color': '#FFFFFF', 'width': '85px', 'height': '32px', 'backgroundColor': '#5861AE', 'borderRadius': '3px' }}>Proceed</button></div>
 
                 </div>

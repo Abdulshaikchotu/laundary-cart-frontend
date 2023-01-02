@@ -1,13 +1,14 @@
 
-import Orderpagenav from './Orderpagenav'
+
 import Orderpagesidebar from './Orderpagesidebar'
 import './Orderpage.css'
 import { Link } from 'react-router-dom'
 import CopyRight from '../FooterComp/copyright'
+import Navbar from '../HeaderComp/navbar'
 function Orderpage(){
     return(
         <div>
-            <Orderpagenav></Orderpagenav>
+            <Navbar/>
             <span style={{'marginLeft':'30px','fontSize':'18px'}}> order |0</span>
             <span id='inputsearch'> <span><img src={require('../logo/search.jpg')}  id='simg' ></img></span><input></input></span>
             <div className='op'>
@@ -18,7 +19,7 @@ function Orderpage(){
                   <span style={{'color':'#222B45'}}>  No order available</span>
                   <div>
 
-               <Link to='/CreateOrder'> <button  style={{'border':'2px solid #5861AE','width':'90px','height':'25px','color':'#5861AE','marginTop':"10px",'borderRadius':'5px'}} >Create</button></Link>
+               <Link to='/Cardorder'> <button  style={{'border':'2px solid #5861AE','width':'90px','height':'25px','color':'#5861AE','marginTop':"10px",'borderRadius':'5px'}} >Create</button></Link>
 
                   </div>
                 </div>

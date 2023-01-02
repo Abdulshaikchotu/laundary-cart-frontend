@@ -11,7 +11,7 @@ function Navbar (props){
         
               // Force a reload if the user has logged out.
               window.location.href = '/';
-              window.location.reload();
+            //   window.location.reload();
               
     }
     return(
