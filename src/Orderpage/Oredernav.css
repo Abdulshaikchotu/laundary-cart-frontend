@@ -23,6 +23,7 @@
     flex-wrap: wrap;
     justify-content: flex-end;
     row-gap: 10px;
+    color: #565657;
 }
 .header ul li{
     list-style: none;

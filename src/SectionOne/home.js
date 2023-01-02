@@ -13,10 +13,11 @@ function HomeSection(props) {
         <h1>Laundry <br /> Service</h1>
       </div>
       <div>
-        <p>
-
+  
+          <h5>
           Doorstep Wash & Dryclean Service
-        </p>
+          </h5>
+      
         <h6>
           {props.change_login?"Alredy Have Account":'Don`t Have An Account'}
         </h6>

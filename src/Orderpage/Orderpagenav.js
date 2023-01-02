@@ -1,7 +1,7 @@
 
 
 import React from "react";
-
+import './Oredernav.css'
 function Orderpagenav (){
     return(
         <div className="header">
