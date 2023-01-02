@@ -8,7 +8,7 @@
     color: #5861AE;
 }
 .refer_container h4{
-    margin-bottom: 0px;
+    margin-bottom: 0px;   
 }
 .refer_container h6{
     margin-top: 0px;
@@ -25,6 +25,7 @@
 .footer_navlinks ul{
     list-style: none;
 }
+
 .footer_navlinks li:nth-child(n+1):not(li:first-child){
     font-size: small;
     font-weight: lighter;
