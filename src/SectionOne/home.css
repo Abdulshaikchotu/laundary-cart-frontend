@@ -42,13 +42,13 @@
     margin-bottom: 15%;
 }
 #blue_line_cont{
-width: 1%;
+width: 0.7%;
 display: flex;
 align-items: center;
 position: relative;
 }
 #blue_line{
-    height: 25%;
+    height: 30%;
     width: 100%;
     background-color: #00000038;
 }

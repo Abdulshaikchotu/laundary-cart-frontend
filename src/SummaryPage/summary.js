@@ -6,7 +6,7 @@ import './summary.css'
 function SummaryPage(props){
     const navigate = useNavigate()
     // dummy data for render table.
-    console.log(props.orderstatus);
+    console.log(props.ord_D);
     let[usewrong,setwrong]=useState(false)
 
     function wrong(){
@@ -16,23 +16,24 @@ function SummaryPage(props){
     //    setwrong(true)
        props.changeback()
     }
-    let orderDetails = [
-        {
-            washItem: "Shirts",
-            washType: "Washing,Ironing",
-            priceDetails: "5 X 20 =",
-            total:100
-        }, {
-            washItem: "Jeans",
-            washType: "Washing,Ironing",
-            priceDetails: "5 X 30 =",
-            total:150
-        }, {
-            washItem: "Shirts",
-            washType: "Washing,Ironing",
-            priceDetails: "5 X 20 =",
-            total:100
-        }];
+    let orderDetails = props.ord_D
+    // let orderDetails = [
+    //     {
+    //         washItem: "Shirts",
+    //         washType: "Washing,Ironing",
+    //         priceDetails: "5 X 20 =",
+    //         total:100
+    //     }, {
+    //         washItem: "Jeans",
+    //         washType: "Washing,Ironing",
+    //         priceDetails: "5 X 30 =",
+    //         total:150
+    //     }, {
+    //         washItem: "Shirts",
+    //         washType: "Washing,Ironing",
+    //         priceDetails: "5 X 20 =",
+    //         total:100
+    //     }];
         const [store_address,set_storeAdd] = useState(false);
         const [user_add,set_userAdd] = useState(false)
         function get_storeAdd(e){
@@ -99,14 +100,14 @@ function SummaryPage(props){
                         <table>
                             <thead></thead>
                             <tbody>
-                        {orderDetails.map((val,key)=>{
+                        {orderDetails?.map((val,key)=>{
                             return(
                              
                                     <tr key={key}  id="summ_order">
-                                    <td>{val.washItem}</td>
+                                    <td>{val.ordeerItem}</td>
                                     <td>{val.washType}</td>
-                                    <td>{val.priceDetails}</td>
-                                    <td>{val.total}</td>
+                                    <td>{val.orderPriceDetails}</td>
+                                    <td>{val.totalCost}</td>
                                 </tr>
                                 
                            

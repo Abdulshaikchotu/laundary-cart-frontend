@@ -6,23 +6,32 @@ import searchphoto from "./mag.svg"
 import userhome from "../logo/home.png"
 import usermore from "../logo/more.png"
 import userlist from "../logo/list@2x.png"
-import { Link } from "react-router-dom"
+import { Link, redirect, useNavigate } from "react-router-dom"
 import SummaryPage from "../SummaryPage/summary"
 import SuccessPopUp from "../SucessPopUp/popUp"
 // import Orderpagesidebar from "../Orderpage/Orderpagesidebar"
 let Userdetails = (props) => {
+  let navigate = useNavigate()
   const [conf_can, setConf_can] = useState(false)
   const token = window.localStorage.getItem('token');
   const [name, set_name] = useState("");
   let [state, setstate] = useState([])
-  let [sum,setsum]=useState(false)
-  function summary_page(){
+  let [sum,setsum]=useState(false);
+  let [order_sum,set_order_sum]=useState(false);
+ 
+  function summary_page(idx){
     console.log("ok")
+    console.log(idx)
+   console.log(state[idx].orderSummary)
+   let orderSummary = state[idx].orderSummary;
+   set_order_sum(orderSummary)
     setsum(true)
        
   }
   useEffect(() => {
-    
+    if (!token){
+      navigate('/')
+    }
     fetch("https://laundry-backend-i2fe.onrender.com/successfulLogin", {
       method: "get",
       headers: {
@@ -43,8 +52,8 @@ let Userdetails = (props) => {
   return (
     <>
       {/* <Link to="/userdetails">create</Link> */}
-       {conf_can?< SuccessPopUp/>:""}
-      {sum?<SummaryPage orderstatus={true} changeback ={go_back_toUserD} confrimCancal={setConf_can}/>:""}
+       {conf_can?"":""}
+      {sum?<SummaryPage orderstatus={true} changeback ={go_back_toUserD} ord_D={order_sum} confrimCancal={setConf_can} />:""}
       <Navbar After_Login={true} name={name} />
         {/* <Orderpagesidebar/> */}
       <div className="order-header">
@@ -92,7 +101,7 @@ let Userdetails = (props) => {
                 <td>{ele.total_item}</td>
                 <td style={{ color: "#5861AE" }}>{ele.price}</td>
                 <td>{ele.status }</td>
-                <td><i className="far fa-eye" onClick={()=>{summary_page()}}></i></td>
+                <td><i className="far fa-eye" key={i} onClick={()=>{summary_page(i)}}></i></td>
               </tr>
             </table>
             {/* {<h3>{ele.order_id}</h3>}
