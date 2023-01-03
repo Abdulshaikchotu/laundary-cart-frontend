@@ -8,9 +8,10 @@ import usermore from "../logo/more.png"
 import userlist from "../logo/list@2x.png"
 import { Link, redirect, useNavigate } from "react-router-dom"
 import SummaryPage from "../SummaryPage/summary"
-import SuccessPopUp from "../SucessPopUp/popUp"
+import Cancal from "../cancalorderpopup/cancal"
 // import Orderpagesidebar from "../Orderpage/Orderpagesidebar"
 let Userdetails = (props) => {
+
   let navigate = useNavigate()
   const [conf_can, setConf_can] = useState(false)
   const token = window.localStorage.getItem('token');
@@ -20,6 +21,7 @@ let Userdetails = (props) => {
   let [order_sum,set_order_sum]=useState(false);
  
   function summary_page(idx){
+
     console.log("ok")
     console.log(idx)
    console.log(state[idx].orderSummary)
@@ -28,10 +30,12 @@ let Userdetails = (props) => {
     setsum(true)
        
   }
+  // console.log(props.updatecancal);
   useEffect(() => {
     if (!token){
       navigate('/')
     }
+   )
     fetch("https://laundry-backend-i2fe.onrender.com/successfulLogin", {
       method: "get",
       headers: {
@@ -43,22 +47,21 @@ let Userdetails = (props) => {
         console.log(data)
         setstate(data.post[0].orders);
         set_name(data.post[0].name);
+
       })
 
-  },[])
-  function go_back_toUserD(){
-    setsum(false)
-  }
+  }, [])
+
   return (
     <>
       {/* <Link to="/userdetails">create</Link> */}
-       {conf_can?"":""}
+
       {sum?<SummaryPage orderstatus={true} changeback ={go_back_toUserD} ord_D={order_sum} confrimCancal={setConf_can} />:""}
       <Navbar After_Login={true} name={name} />
         {/* <Orderpagesidebar/> */}
       <div className="order-header">
         <h3 style={{marginLeft:"101px"}}>Orders|0</h3>
-        <Link to="/Cardorderpage"><button style={{alignSelf:"center",padding:"7px 28px 6px 29px",color:"#5861AE"}}>create</button></Link>
+        <Link to="/Cardorder"><button style={{alignSelf:"center",padding:"7px 28px 6px 29px",color:"#5861AE",marginTop:"34px"}}>create</button></Link>
         <img  src={searchphoto} style={{width:"20px",alignSelf:"center"}}/>
         <input type={"search"} className="search-input"/>
       </div>
@@ -104,14 +107,7 @@ let Userdetails = (props) => {
                 <td><i className="far fa-eye" key={i} onClick={()=>{summary_page(i)}}></i></td>
               </tr>
             </table>
-            {/* {<h3>{ele.order_id}</h3>}
-            {<h3>{ele.orderdate}</h3>}
-            {<h3>{ele.location}</h3>}
-            {<h3>{ele.city}</h3>}
-            {<h3>{ele.phone}</h3>}
-            {<h3>{ele.total_items}</h3>}
-            {<h3>{ele.price}</h3>}
-            {<h3>{ele.status}</h3>} */}
+           
 
           </div>
         

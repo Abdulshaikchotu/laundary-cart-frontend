@@ -1,0 +1,115 @@
+#cancal-img {
+
+    width: 34px;
+    height: 30px;
+}
+
+
+#cancal-outer{
+    width: 100%;
+    height: 100%;
+    background-color: rgba(8, 1, 1, 0.288);
+    display: inline-block;
+    position: absolute;
+}
+#cancal-inner{
+    width: 35%;
+    height: 55%;
+    background-color: #fff;
+    z-index: 150;
+    position: absolute;
+    right: 32%;
+    top: 16%;
+    display: flex;
+    align-items: center;
+    border-radius: 4%;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+}
+#cancalheader {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    top: 315px;
+    left: 517px;
+    width: 415px;
+    height: 210px;
+    background: #ffffff00 0% 0% no-repeat padding-box;
+    border: 2px solid black;
+border-radius: 2px;
+opacity: 1;
+margin-left: 11px;
+    margin-top: 20px;
+    z-index: 150px;
+/* margin-top: -20px */
+    /* border: 2px solid black; */
+}
+
+#cancal-alert {
+    background-color: #5861AE;
+    border: 2px solid;
+    width: 415px;
+    height: 43px;
+    background: #5861AE 0% 0% no-repeat padding-box;
+    border-radius: 2px 2px 1px 1px;
+    opacity: 1;
+    margin-top: -45px;
+}
+
+#css-alert {
+    color: white;
+    /* align-self: center; */
+    margin-left: 22px;
+    margin-top: 7px;
+    margin-bottom: 12px;
+    margin-right: 359px
+}
+
+#cancal-img {
+
+    top: 413px;
+    left: 554px;
+    width: 34px;
+    height: 30px;
+    /* UI Properties */
+    background: #F40808 0% 0% no-repeat padding-box;
+    opacity: 1;
+    margin-left: 37.16px;
+    margin-top: 98.24px;
+    margin-bottom: 82.24px;
+    margin-right: 344.17px
+}
+
+#cancal-ptag {
+    top: 393px;
+    left: 616px;
+    width: 218px;
+    height: 38px;
+    text-align: center;
+    letter-spacing: 0.34px;
+    opacity: 1;
+    /* margin-left:616px; */
+    margin-top: -150px;
+    /* margin-bottom:500px; */
+    /* margin-right: 606px */
+}
+
+#cancal-button {
+    top: 466px;
+    left: 697px;
+    width: 55px;
+    height: 19px;
+    text-align: left;
+    font: normal normal 600 14px/48px Open Sans;
+    letter-spacing: 0px;
+    color: #FFFFFF;
+    opacity: 1;
+}
+
+#cancal-cross{
+    margin-left: 363px;
+    margin-top: -45px
+}

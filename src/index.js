@@ -12,7 +12,6 @@ import SummaryPage from './SummaryPage/summary';
 import SuccessPopUp from './SucessPopUp/popUp';
 
 
-
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
         <>
