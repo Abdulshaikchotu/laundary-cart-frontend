@@ -6,7 +6,7 @@ import {  Link, useNavigate } from 'react-router-dom';
 import Userdetails from '../userDetails/User';
 import axios from 'axios'
 import './summary.css'
- async function SummaryPage(props){
+ function SummaryPage(props){
     const [store_address,set_storeAdd] = useState(false);
         const [user_add,set_userAdd] = useState(false)
     let val1=props.itemarry
@@ -25,18 +25,7 @@ import './summary.css'
         
     }
     else{
-        await fetch("https://laundry-backend-i2fe.onrender.com/successfulLogin", {
-            method: "get",
-            headers: {
-              authorization: token
-            }
-          })
-            .then((res) => res.json())
-            .then((data) => {
-              console.log(data.post[0])
-             
-      
-            })
+        
         
        
       

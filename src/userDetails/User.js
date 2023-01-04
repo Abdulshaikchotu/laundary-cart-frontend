@@ -88,8 +88,7 @@ let Userdetails = (props) => {
         <img  src={searchphoto} style={{width:"20px",alignSelf:"center"}}/>
         <input type={"search"} className="search-input"/>
       </div>
-      <table>
-         <thead  className="table-head" style={{backgroundColor:"black",color:"white"}}>
+         <table  className="table-head" style={{backgroundColor:"black",color:"white"}}>
               <tr>
                 <th>Order Id</th>
 
@@ -110,7 +109,7 @@ let Userdetails = (props) => {
 
                 <th>View</th>
               </tr>
-      </thead>
+      </table>
       <div className="user-sidebar">
        <div><img  src={userhome} /></div>
        <div><img  src={usermore} /></div>
@@ -118,7 +117,7 @@ let Userdetails = (props) => {
       {state.map((ele, i) => {
         return <>
           <div  key={i}>
-           <tbody className="data-table">
+           <table className="data-table">
               <tr>
                 <td>{ele.order_id}</td>
                 <td>{ele.orderDate}</td>
@@ -130,7 +129,6 @@ let Userdetails = (props) => {
                 <td>{ele.status }</td>
                 <td><i className="far fa-eye" key={i} onClick={()=>{summary_page(i);st_cancle(i)}}></i></td>
               </tr>
-            </tbody>
             </table>
            
 
