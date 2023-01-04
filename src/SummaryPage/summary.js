@@ -6,8 +6,7 @@ import {  Link, useNavigate } from 'react-router-dom';
 import Userdetails from '../userDetails/User';
 import axios from 'axios'
 import './summary.css'
-
-function SummaryPage(props){
+ async function SummaryPage(props){
     const [store_address,set_storeAdd] = useState(false);
         const [user_add,set_userAdd] = useState(false)
     let val1=props.itemarry
@@ -26,12 +25,28 @@ function SummaryPage(props){
         
     }
     else{
+        await fetch("https://laundry-backend-i2fe.onrender.com/successfulLogin", {
+            method: "get",
+            headers: {
+              authorization: token
+            }
+          })
+            .then((res) => res.json())
+            .then((data) => {
+              console.log(data.post[0])
+             
+      
+            })
+        
+       
+      
         orderDetails=props.itemarry
         for(let i=0;i<val1.length;i++){
             p=p+(val1[i].quantity* val1[i].washing+val1[i].ironing+val1[i].bleach+val1[i].towel)
             Quantity=Quantity+Number(val1[i].quantity)
         } 
       data = {
+    unique:unique,
     order_id: `laundry${unique}`,
     orderDate: `${new Date().toJSON().slice(0, 10)},${new Date().getHours()}:${new Date().getMinutes()}`,
     location: "madhyapradesh",
@@ -84,6 +99,7 @@ function SummaryPage(props){
             if(store_address && user_add){
                 // send details to backend  route ('/successfulLogin') in json formate.
                 // if response status 200 then redirect  to '/sucessPopup' route.
+                
                 set_unique(unique+1)
                 console.log('...............',token)
                 await axios.post("https://laundry-backend-i2fe.onrender.com/successfulLogin",data,{

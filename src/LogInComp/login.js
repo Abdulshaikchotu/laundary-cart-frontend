@@ -63,6 +63,11 @@ function LogInForm() {
       navigate('/Cardorderpage')
     }
     
+    else if(response.request.status === 400){
+      alert("There no register user with this email!")
+      console.log(response.request.status === 400)
+    }
+    
   }
 
 

@@ -28,14 +28,16 @@ function RegisterPage(){
             pincode:form_data.current.pincode.value,
             password:form_data.current.password.value
         }
+        console.log(data)
         if(get_check_d){
             const response = await axios.post(Url,data)
         console.log(response.status)
         if(response.status === 200){
             navigate('/')
         }
-        }{alert('Please Select Term & Condition')}
+        else {alert('Please Select Term & Condition')}
         
+    }
     }
     return(
         <>
