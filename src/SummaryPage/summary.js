@@ -65,14 +65,13 @@ function SummaryPage(props){
                 // if response status 200 then redirect  to '/sucessPopup' route.
                 set_unique(unique+1)
                 console.log('...............',token)
-                await axios.post("https://laundry-backend-i2fe.onrender.com/successfulLogin",{
+                await axios.post("https://laundry-backend-i2fe.onrender.com/successfulLogin",data,{
+                    
                     headers: {
                         Authorization: token,
                          //th token is a variable which holds the token
-                         'Content-Type': 'application/json;charset=UTF-8',
-
-                      },
-                      body:data
+                         'Content-Type': 'application/json;charset=UTF-8' }
+                      
                 })
                 navigate('/sucessPopup')
                 console.log(data)
