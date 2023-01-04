@@ -1,41 +1,69 @@
-import {  useState } from 'react'
-import {  useNavigate } from 'react-router-dom';
+
+import {  useEffect, useState } from 'react'
+
+
+import {  Link, useNavigate } from 'react-router-dom';
 import Userdetails from '../userDetails/User';
+import axios from 'axios'
 import './summary.css'
 
 function SummaryPage(props){
+    const [store_address,set_storeAdd] = useState(false);
+        const [user_add,set_userAdd] = useState(false)
+    let val1=props.itemarry
+    let p=0
+    let Quantity=0
+    let token=window.localStorage.getItem('token');
+    let orderDetails=[];
+    let data = {}
+    
+    const [unique,set_unique] = useState(0)
+    if(props.orderstatus){
+        data = props.data
+        orderDetails = data;
+        // console.log(props.tData)
+        
+        
+    }
+    else{
+        orderDetails=props.itemarry
+        for(let i=0;i<val1.length;i++){
+            p=p+(val1[i].quantity* val1[i].washing+val1[i].ironing+val1[i].bleach+val1[i].towel)
+            Quantity=Quantity+Number(val1[i].quantity)
+        } 
+      data = {
+    order_id: `laundry${unique}`,
+    orderDate: `${new Date().toJSON().slice(0, 10)},${new Date().getHours()}:${new Date().getMinutes()}`,
+    location: "madhyapradesh",
+    city: "sidhi",
+    phone: "+917656579478",
+    total_item: Quantity,
+    price:p ,
+    status: "Ready to pickup",
+    orderSummary:props.itemarry
+}
+    }
+    
+
     const navigate = useNavigate()
+    // console.log(props.itemarry)
+    // console.log(Date.now())
     // dummy data for render table.
-    console.log(props.ord_D);
+    // console.log(props.orderstatus);
     let[usewrong,setwrong]=useState(false)
+    
 
     function wrong(){
 
         console.log("wrong",props);
-    
-    //    setwrong(true)
-       props.changeback()
+        if(props.orderstatus){
+            props.cancalorder()
+        
+    }else{props.cr_summary(false)}
     }
-    let orderDetails = props.ord_D
-    // let orderDetails = [
-    //     {
-    //         washItem: "Shirts",
-    //         washType: "Washing,Ironing",
-    //         priceDetails: "5 X 20 =",
-    //         total:100
-    //     }, {
-    //         washItem: "Jeans",
-    //         washType: "Washing,Ironing",
-    //         priceDetails: "5 X 30 =",
-    //         total:150
-    //     }, {
-    //         washItem: "Shirts",
-    //         washType: "Washing,Ironing",
-    //         priceDetails: "5 X 20 =",
-    //         total:100
-    //     }];
-        const [store_address,set_storeAdd] = useState(false);
-        const [user_add,set_userAdd] = useState(false)
+    
+
+        
         function get_storeAdd(e){
             console.log(e.target.value)
             let sel_data = e.target.value;
@@ -51,17 +79,33 @@ function SummaryPage(props){
             console.log(e.target.value);
             set_userAdd(true);
         }
-        function confrim_order(e){
+         async function confrim_order(e){
             e.preventDefault();
             if(store_address && user_add){
                 // send details to backend  route ('/successfulLogin') in json formate.
                 // if response status 200 then redirect  to '/sucessPopup' route.
+                set_unique(unique+1)
+                console.log('...............',token)
+                await axios.post("https://laundry-backend-i2fe.onrender.com/successfulLogin",data,{
+                    headers: {
+                        Authorization: token,
+                         //th token is a variable which holds the token
+                         'Content-Type': 'application/json;charset=UTF-8',
+
+                      }
+                })
                 navigate('/sucessPopup')
+                console.log(data)
             }
         }
         function comf_cancal(){
             props.confrimCancal(true);
             props.changeback()
+            
+        }
+        function procced(){
+            props.cancalorder();
+            props.procced()
         }
             
     return(
@@ -72,7 +116,8 @@ function SummaryPage(props){
             <div id="summary_header" >
                 <div id='sum_head_cont'>
                     <h3>SUMMARY</h3>
-                <h4 onClick={wrong}>X</h4>
+                    <h4 onClick={wrong} style={{color:'white'}}> X </h4>
+                  
                 </div>
                 <div id='store_details'>
                     <div>
@@ -104,10 +149,10 @@ function SummaryPage(props){
                             return(
                              
                                     <tr key={key}  id="summ_order">
-                                    <td>{val.ordeerItem}</td>
-                                    <td>{val.washType}</td>
-                                    <td>{val.orderPriceDetails}</td>
-                                    <td>{val.totalCost}</td>
+                                    <td>{val.name}</td>
+                                    <td>{`${val.washing!=null?'washing':''}${val.ironing!=null?'/ironing':''}${val.bleach!=null?'/bleach':''}${val.towel!=null?'/towel':''}`}</td>
+                                    <td>{`${val.quantity} X ${val.washing+val.ironing+val.bleach+val.towel}=`}</td>
+                                    <td>{val.quantity*(val.washing+val.ironing+val.bleach+val.towel)}</td>
                                 </tr>
                                 
                            
@@ -119,7 +164,7 @@ function SummaryPage(props){
                             <td></td>
                             <td></td>
                             <td>Sub Total:</td>
-                            <td>450</td>
+                            {props.orderstatus?<td>{props.tData.price}</td>:<td>{data.price}</td>}
                         </tr>
                         <tr>
                             <td></td>
@@ -133,7 +178,7 @@ function SummaryPage(props){
                             <td></td>
                             <td></td>
                             <td>Total :</td>
-                            <td> Rs 560</td>
+                            {props.orderstatus?<td>{props.tData.price + 90}</td>:<td> Rs {data.price+90}</td>}
                         </tr>
                         </tfoot>
                         </table>
@@ -143,23 +188,22 @@ function SummaryPage(props){
                     <div id='add-heading'>Address</div>
                     <div id='Address_box'>
                         <div className='add_container'>
-                        <input type="radio" id="html" name="address" value="address1" onChange={get_user_add}></input>
+                        {props.orderstatus?"":<input type="radio" id="html" name="address" value="address1" onChange={get_user_add}></input>}
                             <h6>Home</h6>
                             <p>#223, 10th road, Jp Nagar, Bangalore</p>
                             
-                        </div>
-                        <div className='add_container'>
+                            </div>
+                            {props.orderstatus?"":<div className='add_container'>
                         <input type="radio" id="html" name="address" value="address2" onChange={get_user_add}></input>
                             <h6>Other</h6>
                             <p>#223, 10th road, Jp Nagar, Bangalore</p>
-                        </div>
+                        </div>}
                         {props.orderstatus?"":<div><h5>ADD NEW</h5></div>}
 
                     </div>
                 </div>
                 <div id='summ_footer'>
-                   {props.orderstatus? <button onClick={comf_cancal} style={{backgroundColor:"red",padding:"5px"}}>CancalOrder</button>:
-                    <button onClick={confrim_order} style={store_address && user_add?{backgroundColor:'#4552C1'}:{}}>Confirm</button>}
+                   {props.orderstatus? <button style={{backgroundColor:"red",padding:"5px"}} onClick={()=>{procced()}}>CancalOrder</button>: <button onClick={confrim_order} style={store_address && user_add?{backgroundColor:'#4552C1'}:{}}>Confirm</button>}
                 </div>
             </div>
         </div>

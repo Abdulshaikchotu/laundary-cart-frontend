@@ -8,30 +8,51 @@ import usermore from "../logo/more.png"
 import userlist from "../logo/list@2x.png"
 import { Link, redirect, useNavigate } from "react-router-dom"
 import SummaryPage from "../SummaryPage/summary"
-import SuccessPopUp from "../SucessPopUp/popUp"
+import Cancal from "../cancalorderpopup/cancal"
 // import Orderpagesidebar from "../Orderpage/Orderpagesidebar"
 let Userdetails = (props) => {
-  let navigate = useNavigate()
-  const [conf_can, setConf_can] = useState(false)
   const token = window.localStorage.getItem('token');
   const [name, set_name] = useState("");
   let [state, setstate] = useState([])
-  let [sum,setsum]=useState(false);
-  let [order_sum,set_order_sum]=useState(false);
+  let [sum,setsum]=useState(false)
+  let [can,setcan]=useState(false)
+  const [order_sum , set_order_sum] = useState();
+  let [total_data,setTotal_data]= useState({})
+  let [orde_id ,set_order_id] = useState("");
+  let [status_ord, set_status_ord] = useState("")
+
  
+  function ca(){
+    setsum(false)
+  }
+  function procced (){
+    setcan(true)
+  }
   function summary_page(idx){
-    console.log("ok")
-    console.log(idx)
+    
    console.log(state[idx].orderSummary)
    let orderSummary = state[idx].orderSummary;
-   set_order_sum(orderSummary)
+
+
+   set_order_sum(orderSummary);
+   let price  = state[idx].price;
+   let totel_items = state[idx].total_item;
+   total_data.price = price;
+   total_data.total_item = totel_items;
+   setTotal_data({price:price,tatal_item:totel_items})
+   set_order_id(state[idx].order_id)
+   
+   
     setsum(true)
-       
+    
   }
+  // console.log(props.updatecancal);
+  let navigate = useNavigate()
   useEffect(() => {
-    if (!token){
+    if(!token){
       navigate('/')
     }
+    console.log(token)
     fetch("https://laundry-backend-i2fe.onrender.com/successfulLogin", {
       method: "get",
       headers: {
@@ -40,25 +61,30 @@ let Userdetails = (props) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data)
+        console.log(data.post[0])
         setstate(data.post[0].orders);
         set_name(data.post[0].name);
+
       })
 
-  },[])
-  function go_back_toUserD(){
-    setsum(false)
+  }, [])
+  function st_cancle(idx){
+    state[idx].status = "Cancel"
   }
+     
+
   return (
     <>
       {/* <Link to="/userdetails">create</Link> */}
-       {conf_can?"":""}
-      {sum?<SummaryPage orderstatus={true} changeback ={go_back_toUserD} ord_D={order_sum} confrimCancal={setConf_can} />:""}
+      { can?<Cancal setcan={setcan} orderId = {orde_id} st_cancle={st_cancle}/>:""}
+      {sum?<SummaryPage orderstatus={true} tData = {total_data} procced={procced} cancalorder={ca} data={order_sum}/>:""}
+      {/* {props.updatecancal?<Cancal/>:""} */}
       <Navbar After_Login={true} name={name} />
         {/* <Orderpagesidebar/> */}
       <div className="order-header">
         <h3 style={{marginLeft:"101px"}}>Orders|0</h3>
-        <Link to="/Cardorderpage"><button style={{alignSelf:"center",padding:"7px 28px 6px 29px",color:"#5861AE"}}>create</button></Link>
+        <Link to="/Cardorder"><button style={{alignSelf:"center",padding:"7px 28px 6px 29px",color:"#5861AE"}}>create</button></Link>
+
         <img  src={searchphoto} style={{width:"20px",alignSelf:"center"}}/>
         <input type={"search"} className="search-input"/>
       </div>
@@ -101,17 +127,10 @@ let Userdetails = (props) => {
                 <td>{ele.total_item}</td>
                 <td style={{ color: "#5861AE" }}>{ele.price}</td>
                 <td>{ele.status }</td>
-                <td><i className="far fa-eye" key={i} onClick={()=>{summary_page(i)}}></i></td>
+                <td><i className="far fa-eye" key={i} onClick={()=>{summary_page(i);st_cancle(i)}}></i></td>
               </tr>
             </table>
-            {/* {<h3>{ele.order_id}</h3>}
-            {<h3>{ele.orderdate}</h3>}
-            {<h3>{ele.location}</h3>}
-            {<h3>{ele.city}</h3>}
-            {<h3>{ele.phone}</h3>}
-            {<h3>{ele.total_items}</h3>}
-            {<h3>{ele.price}</h3>}
-            {<h3>{ele.status}</h3>} */}
+           
 
           </div>
         

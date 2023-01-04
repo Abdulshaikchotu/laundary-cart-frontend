@@ -12,7 +12,6 @@ import SummaryPage from './SummaryPage/summary';
 import SuccessPopUp from './SucessPopUp/popUp';
 
 
-
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
         <>
@@ -27,6 +26,7 @@ root.render(
             <Route path='/userdetails' element={<Userdetails/>} />
             <Route path='/Cardorder' element={<Order/>}/>
             <Route path='/Cardorderpage' element={<Orderpage/>}/>
+
           </Routes>
         </BrowserRouter>
         </>

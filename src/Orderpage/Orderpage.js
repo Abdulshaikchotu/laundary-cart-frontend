@@ -5,10 +5,19 @@ import './Orderpage.css'
 import { Link } from 'react-router-dom'
 import CopyRight from '../FooterComp/copyright'
 import Navbar from '../HeaderComp/navbar'
+import { useState,useEffect } from 'react'
 function Orderpage(){
+
+    let url='https://laundry-backend-i2fe.onrender.com/successfulLogin'
+    let token=window.localStorage.getItem('token')
+    let [userN,setuserN]=useState('')
+    useEffect(()=>{
+        fetch(url,{ method :'get',  headers:{authorization:token}} ).then((res)=>res.json()).then((data)=>setuserN(data.post[0].name))
+    })
     return(
         <div>
-            <Navbar/>
+            {/* <Orderpagenav></Orderpagenav> */}
+            <Navbar After_Login={true} name={userN} ></Navbar>
             <span style={{'marginLeft':'30px','fontSize':'18px'}}> order |0</span>
             <span id='inputsearch'> <span><img src={require('../logo/search.jpg')}  id='simg' ></img></span><input></input></span>
             <div className='op'>
