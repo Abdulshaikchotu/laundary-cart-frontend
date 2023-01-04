@@ -7,11 +7,14 @@
 }
 
 .table-head {
-  width: 1180px;
+  width: 1231px;
   border-collapse: separate;
-  border-spacing: 40px 0px;
-  margin-left: 100px;
-
+  border-spacing: 56px 0px;
+  margin-left: 85px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 8px;
 }
 
 .data-table {
@@ -25,16 +28,21 @@
   border-left-style: hidden;
   border-bottom-style: groove;
   background-color: #FFFFFF;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .order-header {
   display: flex;
   justify-content: space-between;
+  margin-left: 50px;
 }
 
 .order-header button {
   align-self: flex-end;
   margin-left: 900px;
+  margin-top: 34px
 }
 
 .search-input {
@@ -53,6 +61,7 @@
   margin-left: 10px;
   width:60px;
   height: 1000px;
+  margin-top: -136px
 }
 .user-sidebar img{
   top: 119px;

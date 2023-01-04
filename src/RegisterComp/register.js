@@ -9,7 +9,7 @@ import { Link,  } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 
-const Url = "https://laundry-backend-i2fe.onrender.com/register"
+const Url = "https://lokesh-laundry-cart-backend.onrender.com/register"
 function RegisterPage(){
     const form_data = useRef();
     let navigate = useNavigate();

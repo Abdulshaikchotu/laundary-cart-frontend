@@ -1,21 +1,36 @@
 import {  useEffect, useState } from 'react'
+
+
 import {  Link, useNavigate } from 'react-router-dom';
 import Userdetails from '../userDetails/User';
 import axios from 'axios'
 import './summary.css'
 
 function SummaryPage(props){
+    const [store_address,set_storeAdd] = useState(false);
+        const [user_add,set_userAdd] = useState(false)
     let val1=props.itemarry
     let p=0
     let Quantity=0
-    let token=window.localStorage.getItem('token')
-    for(let i=0;i<val1.length;i++){
-        p=p+(val1[i].quantity* val1[i].washing+val1[i].ironing+val1[i].bleach+val1[i].towel)
-        Quantity=Quantity+Number(val1[i].quantity)
-    }
-
+    let token=window.localStorage.getItem('token');
+    let orderDetails=[];
+    let data = {}
+    
     const [unique,set_unique] = useState(0)
-     const data = {
+    if(props.orderstatus){
+        data = props.data
+        orderDetails = data;
+        // console.log(props.tData)
+        
+        
+    }
+    else{
+        orderDetails=props.itemarry
+        for(let i=0;i<val1.length;i++){
+            p=p+(val1[i].quantity* val1[i].washing+val1[i].ironing+val1[i].bleach+val1[i].towel)
+            Quantity=Quantity+Number(val1[i].quantity)
+        } 
+      data = {
     order_id: `laundry${unique}`,
     orderDate: `${new Date().toJSON().slice(0, 10)},${new Date().getHours()}:${new Date().getMinutes()}`,
     location: "madhyapradesh",
@@ -26,6 +41,8 @@ function SummaryPage(props){
     status: "Ready to pickup",
     orderSummary:props.itemarry
 }
+    }
+    
 
     const navigate = useNavigate()
     // console.log(props.itemarry)
@@ -34,15 +51,18 @@ function SummaryPage(props){
     // console.log(props.orderstatus);
     let[usewrong,setwrong]=useState(false)
     
+
     function wrong(){
 
         console.log("wrong",props);
-        props.cr_summary(false)
+        if(props.orderstatus){
+            props.cancalorder()
+        
+    }else{props.cr_summary(false)}
     }
-    let orderDetails=props.itemarry
+    
 
-        const [store_address,set_storeAdd] = useState(false);
-        const [user_add,set_userAdd] = useState(false)
+        
         function get_storeAdd(e){
             console.log(e.target.value)
             let sel_data = e.target.value;
@@ -65,13 +85,13 @@ function SummaryPage(props){
                 // if response status 200 then redirect  to '/sucessPopup' route.
                 set_unique(unique+1)
                 console.log('...............',token)
-                await axios.post("https://laundry-backend-i2fe.onrender.com/successfulLogin",data,{
-                    
+                await axios.post("https://lokesh-laundry-cart-backend.onrender.com/successfulLogin",data,{
                     headers: {
                         Authorization: token,
                          //th token is a variable which holds the token
-                         'Content-Type': 'application/json;charset=UTF-8' }
-                      
+                         'Content-Type': 'application/json;charset=UTF-8',
+
+                      }
                 })
                 navigate('/sucessPopup')
                 console.log(data)
@@ -81,6 +101,10 @@ function SummaryPage(props){
             props.confrimCancal(true);
             props.changeback()
             
+        }
+        function procced(){
+            props.cancalorder();
+            props.procced()
         }
             
     return(
@@ -120,7 +144,7 @@ function SummaryPage(props){
                         <table>
                             <thead></thead>
                             <tbody>
-                        {orderDetails.map((val,key)=>{
+                        {orderDetails?.map((val,key)=>{
                             return(
                              
                                     <tr key={key}  id="summ_order">
@@ -139,7 +163,7 @@ function SummaryPage(props){
                             <td></td>
                             <td></td>
                             <td>Sub Total:</td>
-                            <td>{data.price}</td>
+                            {props.orderstatus?<td>{props.tData.price}</td>:<td>{data.price}</td>}
                         </tr>
                         <tr>
                             <td></td>
@@ -153,7 +177,7 @@ function SummaryPage(props){
                             <td></td>
                             <td></td>
                             <td>Total :</td>
-                            <td> Rs {data.price+90}</td>
+                            {props.orderstatus?<td>{props.tData.price + 90}</td>:<td> Rs {data.price+90}</td>}
                         </tr>
                         </tfoot>
                         </table>
@@ -163,23 +187,22 @@ function SummaryPage(props){
                     <div id='add-heading'>Address</div>
                     <div id='Address_box'>
                         <div className='add_container'>
-                        <input type="radio" id="html" name="address" value="address1" onChange={get_user_add}></input>
+                        {props.orderstatus?"":<input type="radio" id="html" name="address" value="address1" onChange={get_user_add}></input>}
                             <h6>Home</h6>
                             <p>#223, 10th road, Jp Nagar, Bangalore</p>
                             
-                        </div>
-                        <div className='add_container'>
+                            </div>
+                            {props.orderstatus?"":<div className='add_container'>
                         <input type="radio" id="html" name="address" value="address2" onChange={get_user_add}></input>
                             <h6>Other</h6>
                             <p>#223, 10th road, Jp Nagar, Bangalore</p>
-                        </div>
+                        </div>}
                         {props.orderstatus?"":<div><h5>ADD NEW</h5></div>}
 
                     </div>
                 </div>
                 <div id='summ_footer'>
-                   {props.orderstatus? <button onClick={comf_cancal} style={{backgroundColor:"red",padding:"5px"}}>CancalOrder</button>:
-                    <button onClick={confrim_order} style={store_address && user_add?{backgroundColor:'#4552C1'}:{}}>Confirm</button>}
+                   {props.orderstatus? <button style={{backgroundColor:"red",padding:"5px"}} onClick={()=>{procced()}}>CancalOrder</button>: <button onClick={confrim_order} style={store_address && user_add?{backgroundColor:'#4552C1'}:{}}>Confirm</button>}
                 </div>
             </div>
         </div>
