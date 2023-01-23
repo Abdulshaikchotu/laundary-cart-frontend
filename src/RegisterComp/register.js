@@ -7,16 +7,19 @@ import CopyRight from "../FooterComp/copyright";
 import './register.css'
 import { Link,  } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import Spinner from "../spinner/spinner";
 
 
 const Url = "https://laundry-backend-i2fe.onrender.com/register"
 function RegisterPage(){
+    const [spin,setSpin] = useState(false)
     const form_data = useRef();
     let navigate = useNavigate();
     const [reg_user, set_userDetails] = useState({})
     const [get_check_d , set_check_d] = useState(false)
     async function Reg_User(e){
         e.preventDefault()
+        setSpin(true);
         console.log(reg_user)
         const  data = {
             name:form_data.current.name.value,
@@ -35,12 +38,16 @@ function RegisterPage(){
         if(response.status === 200){
             navigate('/')
         }
-        else {alert('Please Select Term & Condition')}
+        else {
+            alert('Please Select Term & Condition')
+            setSpin(false)
+        }
         
     }
     }
     return(
         <>
+            {spin?<Spinner/>:""}
             <Navbar/>
             <div id="reg_container">
                 <div id="right_side_cont">

@@ -18,12 +18,6 @@ function HomeSection(props) {
           <p>
           Doorstep Wash & Dryclean Service
           </p>
-      
-        
-
-        {/* <Link to='/register' ><button>Register</button> </Link>     
-      </section> */}
-    
       </div>
       <div>
       <h6>

@@ -1,4 +1,3 @@
-
 import {  useEffect, useState } from 'react'
 
 
@@ -6,7 +5,8 @@ import {  Link, useNavigate } from 'react-router-dom';
 import Userdetails from '../userDetails/User';
 import axios from 'axios'
 import './summary.css'
- function SummaryPage(props){
+
+function SummaryPage(props){
     const [store_address,set_storeAdd] = useState(false);
         const [user_add,set_userAdd] = useState(false)
     let val1=props.itemarry
@@ -20,22 +20,14 @@ import './summary.css'
     if(props.orderstatus){
         data = props.data
         orderDetails = data;
-        // console.log(props.tData)
-        
-        
     }
     else{
-        
-        
-       
-      
         orderDetails=props.itemarry
         for(let i=0;i<val1.length;i++){
             p=p+(val1[i].quantity* val1[i].washing+val1[i].ironing+val1[i].bleach+val1[i].towel)
             Quantity=Quantity+Number(val1[i].quantity)
         } 
       data = {
-    unique:unique,
     order_id: `laundry${unique}`,
     orderDate: `${new Date().toJSON().slice(0, 10)},${new Date().getHours()}:${new Date().getMinutes()}`,
     location: "madhyapradesh",
@@ -47,13 +39,7 @@ import './summary.css'
     orderSummary:props.itemarry
 }
     }
-    
-
     const navigate = useNavigate()
-    // console.log(props.itemarry)
-    // console.log(Date.now())
-    // dummy data for render table.
-    // console.log(props.orderstatus);
     let[usewrong,setwrong]=useState(false)
     
 
@@ -90,7 +76,6 @@ import './summary.css'
                 // if response status 200 then redirect  to '/sucessPopup' route.
                 
                 set_unique(unique+1)
-                console.log('...............',token)
                 await axios.post("https://laundry-backend-i2fe.onrender.com/successfulLogin",data,{
                     headers: {
                         Authorization: token,
@@ -127,19 +112,19 @@ import './summary.css'
                 <div id='store_details'>
                     <div>
                         <h6>Store Location:</h6>
-                        <select id='options'onChange={get_storeAdd}>
-                            <option>Choose...</option>
+                        <select id='options'onChange={get_storeAdd} disabled={props.orderstatus?true:false}>
+                            {props.orderstatus?'':<option>Choose...</option>}
                             <option>Sidhi</option>
                         </select>
                     </div>
                     <div>
                     <h6>Store Address:</h6>
-                    {store_address?<p>Near Smart Chowk Sidhi</p>:<p>__</p>}
+                    {store_address || props.orderstatus?<p>Near Smart Chowk Sidhi</p>:<p>__</p>}
                     
                     </div>
                     <div>
                         <h6>Phone </h6>
-                        {store_address?<p>+919999999999</p>:<p>__</p>}
+                        {store_address || props.orderstatus?<p>+919999999999</p>:<p>__</p>}
                         
                     </div>
                 </div>

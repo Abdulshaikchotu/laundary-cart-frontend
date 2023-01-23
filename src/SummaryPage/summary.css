@@ -54,6 +54,7 @@ select{
     border-width: 0px;
     width: 100%;
     border-bottom: 1px solid rgb(204, 203, 203);
+    outline: none;
 }
 #store_detail #option{
     border-width: 0px;
