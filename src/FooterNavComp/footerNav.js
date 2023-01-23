@@ -1,5 +1,5 @@
 
-import './footernav.css'
+import './footerNav.css'
 function FooterNav() {
     return (
 
@@ -14,6 +14,7 @@ function FooterNav() {
                         <li>ABOUT US</li>
                         <li>Doorstep Wash & Dryclean Service</li>
                     </ul>
+                    <ul id="footer_nav_hm_r">
                     <ul>
                         <li>Home</li>
                         <li>Sign In</li>
@@ -30,6 +31,7 @@ function FooterNav() {
                     </ul>
                     <ul>
                         <li>Contact</li>
+                    </ul>
                     </ul>
                     <ul>
                         <li>SOCIAL MEDIA</li>

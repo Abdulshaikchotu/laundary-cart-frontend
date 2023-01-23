@@ -5,38 +5,27 @@ import HomeSection from './SectionOne/home';
 import CopyRight from './FooterComp/copyright'
 
 import Order from './Orderpage/Orderpage';
-import './index.css'
+import './App.css'
 import SuccessPopUp from './SucessPopUp/popUp';
 import SummaryPage from './SummaryPage/summary';
+import { useState } from 'react';
+import Spinner from './spinner/spinner';
 // import Userdetails from './userDetails/User';
 
 
 
 function App() {
-
+  const [spinner,setSpinner] = useState(false);
   return (
     <>
-
-      {/* <Navbar/> */}
-      {/* <HomeSection/>
-      <LogInForm/> */}
-      {/* <FooterNav/>
-      <CopyRight/> */}
-      {/* <Order></Order> */}
-{/* <SuccessPopUp/> */}
-      
-      {/* <SummaryPage/> */}
+      {spinner? <Spinner/>:""}
       <Navbar />
       <div id='two_section'>
         <HomeSection />
-
-        <LogInForm />
+        <LogInForm loder={setSpinner}/>
       </div>
-      
       <FooterNav />
       <CopyRight />
-      
-
     </>
   );
 }

@@ -20,9 +20,6 @@ function SummaryPage(props){
     if(props.orderstatus){
         data = props.data
         orderDetails = data;
-        // console.log(props.tData)
-        
-        
     }
     else{
         orderDetails=props.itemarry
@@ -42,13 +39,7 @@ function SummaryPage(props){
     orderSummary:props.itemarry
 }
     }
-    
-
     const navigate = useNavigate()
-    // console.log(props.itemarry)
-    // console.log(Date.now())
-    // dummy data for render table.
-    // console.log(props.orderstatus);
     let[usewrong,setwrong]=useState(false)
     
 
@@ -83,8 +74,8 @@ function SummaryPage(props){
             if(store_address && user_add){
                 // send details to backend  route ('/successfulLogin') in json formate.
                 // if response status 200 then redirect  to '/sucessPopup' route.
+                
                 set_unique(unique+1)
-                console.log('...............',token)
                 await axios.post("https://laundry-backend-i2fe.onrender.com/successfulLogin",data,{
                     headers: {
                         Authorization: token,
@@ -121,19 +112,19 @@ function SummaryPage(props){
                 <div id='store_details'>
                     <div>
                         <h6>Store Location:</h6>
-                        <select id='options'onChange={get_storeAdd}>
-                            <option>Choose...</option>
+                        <select id='options'onChange={get_storeAdd} disabled={props.orderstatus?true:false}>
+                            {props.orderstatus?'':<option>Choose...</option>}
                             <option>Sidhi</option>
                         </select>
                     </div>
                     <div>
                     <h6>Store Address:</h6>
-                    {store_address?<p>Near Smart Chowk Sidhi</p>:<p>__</p>}
+                    {store_address || props.orderstatus?<p>Near Smart Chowk Sidhi</p>:<p>__</p>}
                     
                     </div>
                     <div>
                         <h6>Phone </h6>
-                        {store_address?<p>+919999999999</p>:<p>__</p>}
+                        {store_address || props.orderstatus?<p>+919999999999</p>:<p>__</p>}
                         
                     </div>
                 </div>

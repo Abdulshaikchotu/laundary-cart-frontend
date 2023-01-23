@@ -10,7 +10,7 @@ const Url = "https://laundry-backend-i2fe.onrender.com/login"
 
 
 
-function LogInForm() {
+function LogInForm(props) {
   let navigate = useNavigate();
   const [user_name, setUser_name] = useState("");
   const [user_password, setUser_password] = useState("");
@@ -54,38 +54,27 @@ function LogInForm() {
       email: user_name,
       password: user_password
     }
-    console.log(data)
+    props.loder(true)
     let response = await axios.post(Url, data);
     console.log(response.data.status)
     if(response.data.status === "success"){
       window.localStorage.setItem("token", response.data.token);
       console.log(window.localStorage.getItem("token"));
-      navigate('/Cardorderpage')
+      navigate('/userdetails')
+    }
+    
+    else if(response.request.status === 400){
+      alert("There no register user with this email!")
+      console.log(response.request.status === 400)
     }
     
   }
-
-
-
-
-    // return(
-    //     <div id='login'>
-    //       <div id='loginsection'>
-    //       <h3>SIGN IN</h3>
-    //     <div id='input1'>
-    //     <input type="text" placeholder="Mobile/Email" onBlur={userId}/>
-    //     </div>
-    //    <div id='input2'>
-    //    <input type="password" placeholder="Password" onBlur={(e)=>setUser_password(e.target.value)}/>
-    //    </div>
-    //     <h5>Forget Password?</h5>
-
   return (
     <div className='login'>
       <div>
         <h3>SIGN IN</h3>
       </div>
-      <div>
+      <div id='user_name_cont'>
         {user_id_lable ? <label htmlFor="user_name">Mobile/Email<br /></label> : ""}
         <input type="text" placeholder="Mobile/Email" onBlur={userId} id="user_name"
           onClick={() => set_user_id_lable(true)} style={col ? { color: 'red', borderBottomColor: 'red' } : {}} />

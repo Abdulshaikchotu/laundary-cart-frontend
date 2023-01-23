@@ -1,67 +1,49 @@
-.header {
 
-  background-color: black;
-  color: aliceblue;
-  /* width: 50px; */
-  height: 50px;
+.orders_body_cont{
+  display:flex;
+  flex-direction: row;
+  width: 100%;
 }
-
-.table-head {
-  width: 1231px;
-  border-collapse: separate;
-  border-spacing: 56px 0px;
-  margin-left: 85px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 8px;
-}
-
-.data-table {
-  width: 1200px;
-  /* margin-top: -100px; */
-  border-collapse: separate;
-  border-spacing: 73px 0px;
-  margin-left: 100px;
-  border-top-style: hidden;
-  border-right-style: hidden;
-  border-left-style: hidden;
-  border-bottom-style: groove;
-  background-color: #FFFFFF;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.order-header {
-  display: flex;
-  justify-content: space-between;
-  margin-left: 50px;
-}
-
-.order-header button {
-  align-self: flex-end;
-  margin-left: 900px;
-  margin-top: 34px
-}
-
-.search-input {
-  width: 250px;
-  height: 30px;
-  align-self: center;
-  border-top-style: hidden;
-  border-right-style: hidden;
-  border-left-style: hidden;
-  border-bottom-style: groove;
-  background-color: #eee;
-}
-
 .user-sidebar{
   background-color:#5861AE;
-  margin-left: 10px;
-  width:60px;
-  height: 1000px;
-  margin-top: -136px
+  width:5%;
+  height: 100vh;
+  
+}
+.bg_wh{
+  background-color: #fff;
+}
+.bg_dark{
+  background-color: black;
+}
+.col_wh{
+  color: #fff;
+}
+.orders_section2{
+  width: 94%;
+}
+.orders_section2 .btn-orders{
+  width: 6rem;
+  border:1px solid #5861AE;
+  margin: 0px 8px;
+}
+.order_section2_1{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+
+}
+.order_search_icon{
+  width:min-content;
+  align-self: center;
+}
+.cr-order-btn-cont{
+  width: 50%;
+  display: flex;
+  justify-content: right;
 }
 .user-sidebar img{
   top: 119px;
@@ -70,4 +52,14 @@
   height: 22px;
   margin: 10px;
   align-self: center;
+}
+.orders_table{
+  margin: 20px;
+}
+.create_btn_center{
+  height: 30rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }

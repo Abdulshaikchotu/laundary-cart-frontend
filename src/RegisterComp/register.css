@@ -6,6 +6,9 @@
 #reg_container h1{
     color: #5861AE;
 }
+#right_side_cont{
+    width :30%;
+}
 #form_container{
     width: 70%;
     background-color: #B9C0FD1A;
@@ -18,7 +21,7 @@
     border-bottom: 1px solid #5861AE;
     outline: none;
     
-    background-color: #b9c0fd0c;
+    background-color: #b9c0fd00;
 }
 #form_container input:first-child{
     margin: 5% 2.5% 0% 5%;
@@ -42,7 +45,7 @@ form div{
     background-color:#4552C1;
     color: #fff;
     width: 15vh;
-    height:6vh;
+    height:4.7vh;
     border: 2px solid #fff;
     border-radius: 4px;
     padding: 1% 2%;
