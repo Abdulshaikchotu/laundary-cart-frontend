@@ -60,7 +60,7 @@ function LogInForm() {
     if(response.data.status === "success"){
       window.localStorage.setItem("token", response.data.token);
       console.log(window.localStorage.getItem("token"));
-      navigate('/Cardorderpage')
+      navigate('/userdetails')
     }
     
   }
