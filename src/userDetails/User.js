@@ -61,7 +61,7 @@ let Userdetails = (props) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data.post[0])
+        console.log(data)
         setstate(data.post[0].orders);
         set_name(data.post[0].name);
 
@@ -82,7 +82,7 @@ let Userdetails = (props) => {
       <Navbar After_Login={true} name={name} />
         {/* <Orderpagesidebar/> */}
       <div className="order-header">
-        <h3 style={{marginLeft:"101px"}}>Orders|0</h3>
+        <h3 style={{marginLeft:"101px"}}>Orders</h3>
         <Link to="/Cardorder"><button style={{alignSelf:"center",padding:"7px 28px 6px 29px",color:"#5861AE"}}>create</button></Link>
 
         <img  src={searchphoto} style={{width:"20px",alignSelf:"center"}}/>

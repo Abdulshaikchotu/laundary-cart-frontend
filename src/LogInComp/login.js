@@ -2,12 +2,9 @@ import axios from 'axios';
 import { useState } from 'react';
 import './login.css'
 import { useNavigate } from "react-router-dom";
-
-
-
-
+ 
+//url for login
 const Url = "https://laundry-backend-i2fe.onrender.com/login"
-
 
 
 function LogInForm() {
@@ -42,43 +39,32 @@ function LogInForm() {
   }
 
 
-
-
-  
   async function logIn(e) {
     e.preventDefault();
-    if (user_name === "") {
-      return alert("Please enter Mobile/Email for Sign In !!")
+    if (user_name === "" || user_password === "") {
+      return alert("Please fill all the credentials!!");
     }
     const data = {
       email: user_name,
       password: user_password
+    };
+  
+    try {
+      const response = await axios.post(Url, data);
+      console.log(response.status);
+  
+      if (response.data.status === "success") {
+        window.localStorage.setItem("token", response.data.token);
+        console.log(window.localStorage.getItem("token"));
+        navigate('/userdetails');
+      } 
+    } catch (error) {
+      // Handle network errors or other unexpected errors
+      console.error(error);
+      return alert(error.response.data.message);
     }
-    console.log(data)
-    let response = await axios.post(Url, data);
-    console.log(response.data.status)
-    if(response.data.status === "success"){
-      window.localStorage.setItem("token", response.data.token);
-      console.log(window.localStorage.getItem("token"));
-      navigate('/userdetails')
-    }
-    
   }
-
-
-
-
-    // return(
-    //     <div id='login'>
-    //       <div id='loginsection'>
-    //       <h3>SIGN IN</h3>
-    //     <div id='input1'>
-    //     <input type="text" placeholder="Mobile/Email" onBlur={userId}/>
-    //     </div>
-    //    <div id='input2'>
-    //    <input type="password" placeholder="Password" onBlur={(e)=>setUser_password(e.target.value)}/>
-    //    </div>
-    //     <h5>Forget Password?</h5>
+  
 
   return (
     <div className='login'>
@@ -86,8 +72,8 @@ function LogInForm() {
         <h3>SIGN IN</h3>
       </div>
       <div>
-        {user_id_lable ? <label htmlFor="user_name">Mobile/Email<br /></label> : ""}
-        <input type="text" placeholder="Mobile/Email" onBlur={userId} id="user_name"
+        {user_id_lable ? <label htmlFor="user_name">Email<br /></label> : ""}
+        <input type="text" placeholder="Email" onBlur={userId} id="user_name"
           onClick={() => set_user_id_lable(true)} style={col ? { color: 'red', borderBottomColor: 'red' } : {}} />
         {col ? <h6> <i style={{ color: 'red', fontSize: '10px', textAlign: 'right', fontWeight: 'lighter' }}>
           Please enter a valid phone number</i></h6> : ""}
